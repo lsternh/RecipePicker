@@ -1,0 +1,5 @@
+application-credential.properties
+.classpath
+.project
+/.gradle/
+/bin/*
