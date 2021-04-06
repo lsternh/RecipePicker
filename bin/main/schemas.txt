@@ -1,0 +1,6 @@
+CREATE TABLE `recipepicker`.`images` (
+  `imageId` INT NOT NULL,
+  `name` VARCHAR(100) NOT NULL,
+  `type` VARCHAR(45) NOT NULL,
+  `imageBytes` VARBINARY(60000) NOT NULL,
+  PRIMARY KEY (`imageId`));
