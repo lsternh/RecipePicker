@@ -38,7 +38,7 @@ public class ControllerTest {
 	@WithMockUser("dev")
 	@Test
 	public void test_add() throws JsonProcessingException, Exception {
-		Recipe recipe = new Recipe("Pizza","stuff",1,null,null);
+		Recipe recipe = new Recipe("Pizza","stuff",null,null, null);
 		ObjectMapper jsonCreator = new ObjectMapper();
 		MvcResult result = this.mockMvc
 				.perform(MockMvcRequestBuilders.post("add")
