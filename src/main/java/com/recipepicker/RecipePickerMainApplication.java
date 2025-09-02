@@ -14,9 +14,6 @@ import com.recipepicker.config.BasicAuthConfig;
 import com.recipepicker.controllers.RecipePickerController;
 import com.recipepicker.repositories.RecipeRepository;
 
-import springfox.documentation.swagger2.annotations.EnableSwagger2;
-
-@EnableSwagger2
 @SpringBootApplication
 public class RecipePickerMainApplication {
 

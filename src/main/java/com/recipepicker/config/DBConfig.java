@@ -5,6 +5,7 @@ import java.util.HashMap;
 
 import javax.sql.DataSource;
 
+import com.zaxxer.hikari.HikariDataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.Bean;
@@ -15,8 +16,6 @@ import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
-
-import com.mchange.v2.c3p0.ComboPooledDataSource;
 
 @Configuration
 @EnableJpaRepositories(
@@ -30,14 +29,13 @@ public class DBConfig {
 	
 	@Bean(name = "datasource", destroyMethod = "close")
 	DataSource datasource() throws PropertyVetoException {
-		ComboPooledDataSource cpds;
-		cpds = new ComboPooledDataSource();
-		cpds.setDriverClass(env.getRequiredProperty("spring.datasource.driver"));
-		cpds.setJdbcUrl(env.getRequiredProperty("spring.datasource.url"));
-		cpds.setUser(env.getRequiredProperty("spring.datasource.username"));
-		cpds.setPassword(env.getRequiredProperty("spring.datasource.password"));
-		System.out.println("asdf");
-		return cpds;
+		HikariDataSource dataSource = new HikariDataSource();
+		dataSource.setDriverClassName(env.getRequiredProperty("spring.datasource.driver"));
+		dataSource.setJdbcUrl(env.getRequiredProperty("spring.datasource.url"));
+		dataSource.setUsername(env.getRequiredProperty("spring.datasource.username"));
+		dataSource.setPassword(env.getRequiredProperty("spring.datasource.password"));
+
+		return dataSource;
 	}
 	
 	@Bean(name = "entityManagerFactory")
