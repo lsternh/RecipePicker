@@ -8,8 +8,10 @@ import java.util.stream.StreamSupport;
 
 import com.recipepicker.dto.RecipeDto;
 import com.recipepicker.mappers.RecipeMapper;
+import com.recipepicker.services.RecipeService;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -29,7 +31,10 @@ public class RecipePickerController {
     @Autowired
 	private RecipeRepository recipeRepostiory;
 
-	@PostMapping("/add")
+    @Autowired
+    private RecipeService recipeService;
+
+    @PostMapping("/add")
 	@Operation(summary = "Add recipe")
 	public void addRecipe(@RequestBody RecipeDto recipeDto) {
         RecipeEntity recipeEntity = mapper.recipeDtoToRecipeEntity(recipeDto);
@@ -46,8 +51,8 @@ public class RecipePickerController {
 	
 	@GetMapping("/get/{id}")
 	@Operation(summary = "Get a recipe")
-	public Optional<RecipeEntity> getRecipe(@PathVariable int id) {
-		return recipeRepostiory.findById(id);
+	public RecipeDto getRecipe(@PathVariable int id) {
+        return recipeService.getRecipeById(id);
 	}
 	
 	@DeleteMapping("/delete/{id}")
